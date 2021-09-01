@@ -1,11 +1,12 @@
-import React, { Component } from 'react'
+import React from 'react'
 import UserItem from './UserItem'
+import Spinner from '../layout/Spinner'
+import PropTypes from 'prop-types'
 
-export class Users extends Component {
-  render() {
-    const { users } = this.props
-    console.log(users)
-
+const Users = ({ users, loading }) => {
+  if (loading) {
+    return <Spinner />
+  } else {
     return (
       <div style={userStyle}>
         {users.map((user) => (
@@ -14,6 +15,11 @@ export class Users extends Component {
       </div>
     )
   }
+}
+
+Users.propTypes = {
+  users: PropTypes.array.isRequired,
+  loading: PropTypes.bool.isRequired
 }
 
 const userStyle = {
