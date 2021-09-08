@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import PropTypes from 'prop-types'
+import GithubContext from '../../context/github/githubContext'
 
-const Search = ({ searchUsers, clearUsers, showClear, setAlert }) => {
-  // When we have a form in react usually
-  // we're going to want to attach state
+const Search = ({ clearUsers, showClear, setAlert }) => {
+  const { searchUsers } = useContext(GithubContext)
 
   const [text, setText] = useState('')
 
@@ -46,7 +46,6 @@ const Search = ({ searchUsers, clearUsers, showClear, setAlert }) => {
 }
 
 Search.propTypes = {
-  searchUsers: PropTypes.func.isRequired,
   clearUsers: PropTypes.func.isRequired,
   showClear: PropTypes.bool.isRequired,
   setAlert: PropTypes.func.isRequired
