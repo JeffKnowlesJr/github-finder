@@ -7,6 +7,9 @@ import User from './components/users/User'
 import Search from './components/users/Search'
 import About from './components/pages/About'
 import axios from 'axios'
+
+import GithubState from './context/github/githubState'
+
 import './App.css'
 
 // Class based component
@@ -80,49 +83,51 @@ const App = () => {
   }
 
   return (
-    <Router>
-      <div className="App">
-        <Navbar />
-        <div className="container">
-          <Alert alert={alert} />
-          <Switch>
-            <Route
-              exact
-              path="/"
-              render={(props) => (
-                <Fragment>
-                  {' '}
-                  <Search
-                    searchUsers={searchUsers}
-                    clearUsers={clearUsers}
-                    showClear={users.length > 0 ? true : false}
-                    setAlert={showAlert}
-                  />
-                  <Users loading={loading} users={users} />
-                </Fragment>
-              )}
-            />
-            <Route
-              exact
-              path="/user/:login"
-              render={(props) => (
-                <Fragment>
-                  <User
-                    {...props}
-                    getUser={getUser}
-                    getUserRepos={getUserRepos}
-                    user={user}
-                    repos={repos}
-                    loading={loading}
-                  />
-                </Fragment>
-              )}
-            />
-            <Route exact path="/about" render={About} />
-          </Switch>
+    <GithubState>
+      <Router>
+        <div className="App">
+          <Navbar />
+          <div className="container">
+            <Alert alert={alert} />
+            <Switch>
+              <Route
+                exact
+                path="/"
+                render={(props) => (
+                  <Fragment>
+                    {' '}
+                    <Search
+                      searchUsers={searchUsers}
+                      clearUsers={clearUsers}
+                      showClear={users.length > 0 ? true : false}
+                      setAlert={showAlert}
+                    />
+                    <Users loading={loading} users={users} />
+                  </Fragment>
+                )}
+              />
+              <Route
+                exact
+                path="/user/:login"
+                render={(props) => (
+                  <Fragment>
+                    <User
+                      {...props}
+                      getUser={getUser}
+                      getUserRepos={getUserRepos}
+                      user={user}
+                      repos={repos}
+                      loading={loading}
+                    />
+                  </Fragment>
+                )}
+              />
+              <Route exact path="/about" render={About} />
+            </Switch>
+          </div>
         </div>
-      </div>
-    </Router>
+      </Router>
+    </GithubState>
   )
 }
 
