@@ -14,27 +14,9 @@ import './App.css'
 
 // Class based component
 const App = () => {
-  const [users, setUsers] = useState([])
-  const [user, setUser] = useState({})
   const [repos, setRepos] = useState([])
   const [loading, setLoading] = useState(false)
   const [alert, setAlert] = useState(null)
-
-  // Get single Github User
-  const getUser = async (username) => {
-    setLoading(true)
-
-    try {
-      const res = await axios.get(
-        `https://api.github.com/users/${username}?client_id${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
-      )
-      setUser(res.data)
-      setLoading(false)
-    } catch (error) {
-      console.log(error)
-      setLoading(false)
-    }
-  }
 
   // Get user repos
   const getUserRepos = async (username) => {
@@ -50,12 +32,6 @@ const App = () => {
       console.log(error)
       setLoading(false)
     }
-  }
-
-  // Clear users from state
-  const clearUsers = () => {
-    setUsers([])
-    setLoading(false)
   }
 
   // Set alert
@@ -81,12 +57,8 @@ const App = () => {
                 render={(props) => (
                   <Fragment>
                     {' '}
-                    <Search
-                      clearUsers={clearUsers}
-                      showClear={users.length > 0 ? true : false}
-                      setAlert={showAlert}
-                    />
-                    <Users loading={loading} users={users} />
+                    <Search setAlert={showAlert} />
+                    <Users />
                   </Fragment>
                 )}
               />
@@ -97,11 +69,8 @@ const App = () => {
                   <Fragment>
                     <User
                       {...props}
-                      getUser={getUser}
                       getUserRepos={getUserRepos}
-                      user={user}
                       repos={repos}
-                      loading={loading}
                     />
                   </Fragment>
                 )}
