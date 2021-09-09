@@ -14,6 +14,22 @@ const RepoItem = ({ repo }) => {
             </span>
           </Fragment>
         )}
+        {repo.homepage != null && (
+          <Fragment>
+            <span style={{ fontSize: '.8em', fontWeight: '500' }}>{' ('}</span>
+            <span style={{ fontSize: '.8em', fontWeight: '600' }}>
+              {'url: '}
+            </span>
+
+            <a
+              style={{ fontSize: '.8em', fontWeight: '500' }}
+              href={repo.homepage}
+            >
+              {repo.homepage}
+            </a>
+            <span style={{ fontSize: '.8em', fontWeight: '500' }}>{')'}</span>
+          </Fragment>
+        )}
       </h3>
     </div>
   )
